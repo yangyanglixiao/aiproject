@@ -6,13 +6,28 @@
         <router-link to="/">首页</router-link>
         <router-link to="/my-orders">我的订单</router-link>
         <router-link to="/cart">购物车</router-link>
-        <el-button type="primary" text @click="$router.push('/login')">登录</el-button>
+        <router-link to="/admin">管理后台</router-link>
+        <template v-if="userStore.userId">
+          <span>你好, {{ userStore.username }}</span>
+          <el-button type="danger" text size="small" @click="handleLogout">退出</el-button>
+        </template>
+        <el-button v-else type="primary" text @click="$router.push('/login')">登录</el-button>
       </div>
     </div>
   </el-header>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+import { useUserStore } from '../stores/user'
+
+const router = useRouter()
+const userStore = useUserStore()
+
+const handleLogout = () => {
+  userStore.logout()
+  router.push('/login')
+}
 </script>
 
 <style scoped>
