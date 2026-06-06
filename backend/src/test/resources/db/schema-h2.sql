@@ -1,0 +1,90 @@
+CREATE TABLE IF NOT EXISTS `user` (
+    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `username` VARCHAR(50) NOT NULL UNIQUE,
+    `password` VARCHAR(100) NOT NULL,
+    `phone` VARCHAR(20),
+    `role` VARCHAR(20) NOT NULL DEFAULT 'USER',
+    `created_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS `merchant` (
+    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `name` VARCHAR(100) NOT NULL,
+    `address` VARCHAR(255),
+    `phone` VARCHAR(20),
+    `logo` VARCHAR(255),
+    `description` TEXT,
+    `status` VARCHAR(20) NOT NULL DEFAULT 'REVIEWING',
+    `created_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS `category` (
+    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `merchant_id` BIGINT NOT NULL,
+    `name` VARCHAR(50) NOT NULL,
+    `sort` INT DEFAULT 0,
+    `created_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS `product` (
+    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `merchant_id` BIGINT NOT NULL,
+    `category_id` BIGINT NOT NULL,
+    `name` VARCHAR(100) NOT NULL,
+    `description` TEXT,
+    `price` DECIMAL(10,2) NOT NULL,
+    `image` VARCHAR(255),
+    `status` VARCHAR(20) NOT NULL DEFAULT 'ON_SHELF',
+    `created_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS `cart` (
+    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `user_id` BIGINT NOT NULL,
+    `merchant_id` BIGINT NOT NULL,
+    `product_id` BIGINT NOT NULL,
+    `quantity` INT NOT NULL DEFAULT 1,
+    `created_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY uk_user_merchant_product (user_id, merchant_id, product_id)
+);
+
+CREATE TABLE IF NOT EXISTS `order` (
+    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `order_no` VARCHAR(32) NOT NULL UNIQUE,
+    `user_id` BIGINT NOT NULL,
+    `total_amount` DECIMAL(10,2) NOT NULL,
+    `status` VARCHAR(20) NOT NULL DEFAULT 'PENDING',
+    `pay_status` VARCHAR(20) NOT NULL DEFAULT 'UNPAID',
+    `pay_method` VARCHAR(20),
+    `created_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS `order_item` (
+    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `order_id` BIGINT NOT NULL,
+    `merchant_id` BIGINT NOT NULL,
+    `product_id` BIGINT NOT NULL,
+    `product_name` VARCHAR(100) NOT NULL,
+    `product_image` VARCHAR(255),
+    `price` DECIMAL(10,2) NOT NULL,
+    `quantity` INT NOT NULL,
+    `subtotal` DECIMAL(10,2) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS `payment_record` (
+    `id` BIGINT AUTO_INCREMENT PRIMARY KEY,
+    `order_id` BIGINT NOT NULL,
+    `order_no` VARCHAR(32) NOT NULL,
+    `amount` DECIMAL(10,2) NOT NULL,
+    `pay_channel` VARCHAR(20) NOT NULL,
+    `status` VARCHAR(20) NOT NULL DEFAULT 'PENDING',
+    `pay_time` DATETIME,
+    `created_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
+    `updated_time` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
