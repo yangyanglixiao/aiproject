@@ -25,7 +25,7 @@ public class AdminOrderController {
         if (status != null) {
             wrapper.eq(Order::getStatus, status);
         }
-        wrapper.orderByDesc(Order::getCreateTime);
+        wrapper.orderByDesc(Order::getCreatedTime);
         return Result.ok(orderService.page(pageParam, wrapper));
     }
 

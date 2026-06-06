@@ -13,6 +13,9 @@
           <el-button type="primary" @click="handleLogin" :loading="loading" style="width: 100%">登录</el-button>
         </el-form-item>
       </el-form>
+      <div style="text-align: right; margin-top: 12px;">
+        <router-link to="/register" style="color: #409eff; text-decoration: none; font-size: 14px;">还没有账号？立即注册</router-link>
+      </div>
     </el-card>
   </div>
 </template>

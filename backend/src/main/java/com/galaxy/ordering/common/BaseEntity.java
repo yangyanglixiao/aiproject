@@ -10,12 +10,9 @@ public abstract class BaseEntity implements Serializable {
     @TableId(type = IdType.AUTO)
     private Long id;
 
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
+    @TableField("created_time")
+    private LocalDateTime createdTime;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
-
-    @TableLogic
-    private Integer deleted;
+    @TableField("updated_time")
+    private LocalDateTime updatedTime;
 }

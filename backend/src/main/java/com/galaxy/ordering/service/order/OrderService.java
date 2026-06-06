@@ -34,7 +34,7 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
         Page<Order> pageParam = new Page<>(page, size);
         return this.page(pageParam, new LambdaQueryWrapper<Order>()
                 .eq(Order::getUserId, userId)
-                .orderByDesc(Order::getCreateTime));
+                .orderByDesc(Order::getCreatedTime));
     }
 
     public Order getById(Long orderId, Long userId) {
@@ -102,8 +102,8 @@ public class OrderService extends ServiceImpl<OrderMapper, Order> {
 
         for (OrderItem item : allItems) {
             item.setOrderId(order.getId());
+            orderItemMapper.insert(item);
         }
-        orderItemMapper.insert(allItems);
 
         for (Long merchantId : merchantGroup.keySet()) {
             cartMapper.delete(new LambdaQueryWrapper<Cart>()

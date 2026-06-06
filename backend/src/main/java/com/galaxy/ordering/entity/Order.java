@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("order")
+@TableName("`order`")
 public class Order extends BaseEntity {
     private String orderNo;
     private Long userId;

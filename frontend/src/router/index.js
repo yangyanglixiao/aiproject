@@ -8,6 +8,7 @@ const routes = [
   { path: '/order/pay/:orderId', component: () => import('../views/OrderPay.vue') },
   { path: '/my-orders', component: () => import('../views/MyOrders.vue') },
   { path: '/login', component: () => import('../views/Login.vue') },
+  { path: '/register', component: () => import('../views/Register.vue') },
   {
     path: '/admin',
     component: () => import('../views/admin/Layout.vue'),

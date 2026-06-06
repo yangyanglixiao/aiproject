@@ -22,8 +22,7 @@ public class ProductService extends ServiceImpl<ProductMapper, Product> {
     public List<Product> listByMerchant(Long merchantId) {
         return this.list(new LambdaQueryWrapper<Product>()
                 .eq(Product::getMerchantId, merchantId)
-                .eq(Product::getStatus, "ON_SHELF")
-                .orderByAsc(Product::getSort));
+                .eq(Product::getStatus, "ON_SHELF"));
     }
 
     public List<Product> listByMerchantAndCategory(Long merchantId, Long categoryId) {

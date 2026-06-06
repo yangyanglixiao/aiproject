@@ -1,8 +1,8 @@
 -- 种子数据
 INSERT IGNORE INTO `user` (username, password, role) VALUES
-('admin', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iAt6Z5EH', 'ADMIN'),
-('user1', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iAt6Z5EH', 'USER'),
-('merchant1', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iAt6Z5EH', 'MERCHANT');
+('admin', '$2a$10$R2.YXRLYwJWWxfAZpI/xMuMF5.Xs3dcYN2Jz7VcwSoEudnBoIwa9q', 'ADMIN'),
+('user1', '$2a$10$R2.YXRLYwJWWxfAZpI/xMuMF5.Xs3dcYN2Jz7VcwSoEudnBoIwa9q', 'USER'),
+('merchant1', '$2a$10$R2.YXRLYwJWWxfAZpI/xMuMF5.Xs3dcYN2Jz7VcwSoEudnBoIwa9q', 'MERCHANT');
 
 -- 商家
 INSERT IGNORE INTO `merchant` (id, name, address, phone, description, status) VALUES

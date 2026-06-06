@@ -21,7 +21,7 @@ public class AdminMerchantController {
             @RequestParam(required = false) String keyword) {
         Page<Merchant> pageParam = new Page<>(page, size);
         return Result.ok(merchantService.page(pageParam, new com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper<Merchant>()
-                .orderByDesc(Merchant::getCreateTime)));
+                .orderByDesc(Merchant::getCreatedTime)));
     }
 
     @PutMapping("/{id}/audit")

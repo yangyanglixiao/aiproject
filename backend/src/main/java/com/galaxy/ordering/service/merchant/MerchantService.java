@@ -23,7 +23,7 @@ public class MerchantService extends ServiceImpl<MerchantMapper, Merchant> {
             wrapper.like(Merchant::getName, keyword);
         }
         wrapper.eq(Merchant::getStatus, "APPROVED")
-               .orderByDesc(Merchant::getCreateTime);
+               .orderByDesc(Merchant::getCreatedTime);
         return this.page(pageParam, wrapper);
     }
 
@@ -42,7 +42,7 @@ public class MerchantService extends ServiceImpl<MerchantMapper, Merchant> {
     public List<Merchant> listAllApproved() {
         return this.list(new LambdaQueryWrapper<Merchant>()
                 .eq(Merchant::getStatus, "APPROVED")
-                .orderByDesc(Merchant::getCreateTime));
+                .orderByDesc(Merchant::getCreatedTime));
     }
 
     public Merchant create(Merchant merchant) {

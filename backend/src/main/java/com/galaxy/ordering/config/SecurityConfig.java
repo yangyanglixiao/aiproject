@@ -3,6 +3,7 @@ package com.galaxy.ordering.config;
 import com.galaxy.ordering.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -36,8 +37,8 @@ public class SecurityConfig {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
-                .requestMatchers("/api/auth/**", "/api/merchants/**", "/api/merchants/**/products", "/h2-console/**").permitAll()
-                .requestMatchers("/api/admin/**").authenticated()
+                .antMatchers("/api/auth/**", "/api/merchants/**", "/api/merchants/**/products", "/h2-console/**").permitAll()
+                .antMatchers("/api/admin/**").authenticated()
                 .anyRequest().authenticated()
             .and()
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)

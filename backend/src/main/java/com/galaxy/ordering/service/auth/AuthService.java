@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.galaxy.ordering.common.BusinessException;
 import com.galaxy.ordering.dto.LoginRequest;
 import com.galaxy.ordering.dto.LoginResponse;
+import com.galaxy.ordering.dto.RegisterRequest;
 import com.galaxy.ordering.entity.User;
 import com.galaxy.ordering.mapper.UserMapper;
 import com.galaxy.ordering.security.JwtTokenProvider;
@@ -40,6 +41,21 @@ public class AuthService {
         response.setRole(user.getRole());
         response.setUserId(user.getId());
         return response;
+    }
+
+    public void register(RegisterRequest request) {
+        User existing = userMapper.selectOne(
+            new LambdaQueryWrapper<User>().eq(User::getUsername, request.getUsername()));
+        if (existing != null) {
+            throw new BusinessException("用户名已存在");
+        }
+
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setPhone(request.getPhone());
+        user.setRole("USER");
+        userMapper.insert(user);
     }
 
     public User getCurrentUser(String username) {

@@ -9,11 +9,10 @@ import App from './App.vue'
 import './styles/main.css'
 import router from './router'
 
-app.use(router)
-
 const app = createApp(App)
 
 app.use(createPinia())
+app.use(router)
 app.use(ElementPlus, { locale: zhCn })
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {

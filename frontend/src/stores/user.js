@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 export const useUserStore = defineStore('user', () => {
   const token = ref(localStorage.getItem('token') || '')
   const userId = ref(Number(localStorage.getItem('userId')) || 0)
   const username = ref(localStorage.getItem('username') || '')
   const role = ref(localStorage.getItem('role') || '')
+
+  const isLoggedIn = computed(() => !!token.value)
 
   function setLoginInfo(data) {
     token.value = data.token
@@ -29,5 +31,5 @@ export const useUserStore = defineStore('user', () => {
     localStorage.removeItem('role')
   }
 
-  return { token, userId, username, role, setLoginInfo, logout }
+  return { token, userId, username, role, isLoggedIn, setLoginInfo, logout }
 })
