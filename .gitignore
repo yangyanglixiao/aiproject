@@ -1,0 +1,7 @@
+/backend/target/
+/backend/cp.txt
+/frontend/node_modules/
+/frontend/dist/
+/docs/.idea/misc.xml
+/docs/.idea/modules.xml
+/docs/.idea/vcs.xml
